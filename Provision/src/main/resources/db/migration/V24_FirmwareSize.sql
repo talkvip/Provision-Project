@@ -1,0 +1,1 @@
+alter table GlanceFirmwareImage add column size bigint;

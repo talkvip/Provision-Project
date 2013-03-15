@@ -1,0 +1,421 @@
+<html>
+	<head>
+		<title>Provision Client</title>
+		<link type="text/css" class="style" href="css/blitzer/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+		<link href="css/backbone-forms.css" rel="stylesheet" type="text/css"/>
+		<link href="css/jquery.multiselect.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="script/jquery-ui-1.8.16.custom.min.js"></script>
+		<script type="text/javascript" src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
+		<script type="text/javascript" src="script/coffee-script.js"></script>
+		<script type="text/javascript" src="script/underscore.js"></script>
+		<script type="text/javascript" src="script/backbone.js"></script>
+		<script type="text/javascript" src="script/backbone-forms.js"></script>
+		<script type="text/javascript" src="script/jquery-ui-editors.js"></script>
+		<script type="text/javascript" src="script/jquery.multiselect.js"></script>
+		<script type="text/coffeescript" src="script/ModelAndView.coffee"></script>
+		<script type="text/coffeescript" src="script/ProvisionClient.coffee"></script>
+		<script type="text/coffeescript" src="script/Application.coffee"></script>
+
+		
+		<div id="menu" style="display:none;" class="ui-tabs ui-tabs-hide">
+			<ul>
+				<li>
+					<a href="#product">Products</a>
+				</li>
+				<li>
+					<a href="#capability">Capabilities</a>
+				</li>
+				<li>
+					<a href="#resource">Resources</a>
+				</li>
+				<li>
+					<a href="#server">Server</a>
+				</li>
+				<li>
+					<a href="#volume">Volumes</a>
+				</li>
+				<li>
+					<a href="#certificate">Certificates</a>
+				</li>
+				<li>
+					<a href="#certificateProvider">Certificate Providers</a>
+				</li>
+				<li>
+					<a href="#user">Users</a>
+				</li>
+				<li>
+					<a href="#firmware">Firmware</a>
+				</li>
+			</ul>
+			<div id="product" class="ui-tabs-hide">
+				<table id="product-list">
+					<tr>
+						<td>Loading Products...</td>
+					</tr>
+				</table>
+				<div>
+					<div id="addNewVirtualProductButton">
+						Create New Virtual Product
+					</div>
+					<div id="addNewPhysicalProductButton">
+						Create New Physical Product
+					</div>
+				</div>
+			</div>
+			<div id="capability" class="ui-tabs-hide">
+				<table id="capability-list">
+					<tr>
+						<td>Loading Capabilities...</td>
+					</tr>
+				</table>
+				<div>
+					<div id="createNewCapabilityButton">
+						Create New Capability
+					</div>
+				</div>
+			</div>
+			<div id="resource" class="ui-tabs-hide">
+				<table id="resource-list">
+					<tr>
+						<td>Loading Resources...</td>
+					</tr>
+				</table>
+			</div>
+			<div id="server" class="ui-tabs-hide">
+				<table id="server-list">
+					<tr>
+						<td>Loading Servers...</td>
+					</tr>
+				</table>
+			</div>
+			<div id="volume" class="ui-tabs-hide">
+				<table id="volume-list">
+					<tr>
+						<td>Loading Volumes...</td>
+					</tr>
+				</table>
+			</div>
+			<div id="certificate" class="ui-tabs-hide">
+				<table id="certificate-list">
+					<tr>
+						<td>Loading Certificates...</td>
+					</tr>
+				</table>
+				<div>
+					<div id="createNewCertificateButton">
+						Create New Certificate
+					</div>
+				</div>
+			</div>
+			<div id="certificateProvider" class="ui-tabs-hide">
+				<table id="certificate-provider-list">
+					<tr>
+						<td>Loading Certificate Providers...</td>
+					</tr>
+				</table>
+				<div>
+					<div id="createNewCertificateProviderButton">
+						Create New Certificate Provider
+					</div>
+				</div>
+			</div>
+			<div id="region" class="ui-tabs-hide">
+				<table id="region-list">
+					<tr>
+						<td>Loading Regions</td>
+					</tr>
+				</table>
+				<div>
+					<div id="createNewRegionButton">
+						Create New Region
+					</div>
+				</div>
+			</div>
+			<div id="instanceType" class="ui-tabs-hide">
+				<table id="instance-type-list">
+					<tr>
+						<td>Loading Instance Types...</td>
+					</tr>
+				</table>
+				<div>
+					<div id="createNewInstanceTypeButton">
+						Create New Instance Type
+					</div>
+				</div>
+			</div>
+			<div id="user" class="ui-tabs-hide">
+				<table id="user-list">
+					<tr>
+						<td>Loading Users...</td>
+					</tr>
+				</table>
+				<div>
+					<div id="createNewUserButton">
+						Create New User
+					</div>
+				</div>
+			</div>
+			<div id="firmware" class="ui-tabs-hide">
+				<table id="firmware-list">
+					<tr>
+						<td>Loading Images...</td>
+					</tr>
+				</table>
+				<div>
+					<div id="createNewFirmwareButton">
+						Create New Firmware
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="mainArea"></div>
+		<div id="content-pane">
+			<table id="listHolder"></table>
+		</div>
+		<div id="ThemeRoller" style="position: absolute; right: 12; top: 12;"></div>
+		<script type="text/template" id="image-list-item-template">
+			<li><a href='#/image/<%= imageId %>'><%= imageId %></a></li>
+		</script>
+		<script type="text/template" id="image-item-template">
+			<%= imageId %>: <%= imageLocation %> (<%= imageState %>)
+		</script>
+		<script type="text/template" id="resource-list-item-template">
+			<tr>
+			<td><%= id %>: <%= product.name %>@<%= hostName %>
+			</td>
+			<td><div class="inspectResourceButton" objectId="<%= id %>">Inspect</div></td>
+			<td><div class="deleteResourceButton" objectId="<%= id %>">Delete</div></td>
+			</tr>
+		</script>
+		<script type="text/template" id="product-list-item-template">
+			<tr class="ui-widget-content">
+			<td><%= id %>: <%= name %> - <%= description %>
+			</td>
+
+			<td><div class="inspectProductButton" objectId="<%= id %>">Inspect</div></td>
+			<% 
+			if(provisioningStrategy == "com.cpn.vsp.provision.strategy.provision.PhysicalCloudGatewayProvisioningStrategy") { %>
+			<td><div class="launchPhysicalProductButton" objectId="<%= id %>">Provision</div></td>
+			<% }else{ %>
+			<td><div class="launchVirtualProductButton" objectId="<%= id %>">Launch</div></td>
+			<% } %>
+			<td><div class="deleteProductButton" objectId="<%= id %>">Delete</div></td>
+
+			</tr>
+		</script>
+		<script type="text/template" id="server-list-item-template">
+			<tr class="ui-widget-content">
+			<td><%= id %>: <%= name %> (<%= status %>)
+			</td>
+			<td><div class="inspectServerButton" objectId="<%= id %>">Inspect</div></td>
+			<td><div class="rebootServerButton" objectId="<%= id %>">Reboot</div></td>
+			<td><div class="deleteServerButton" objectId="<%= id %>">Terminate</div></td>
+			</tr>
+		</script>
+		<script type="text/template" id="certificate-list-item-template">
+			<tr class="ui-widget-content">
+			<td><%= subject.CN %> (<%= id%>)
+			</td>
+			<td><div class="inspectCertificateButton" objectId="<%= id %>">View Certificate</div></td>
+			<td><div class="deleteCertificateButton" objectId="<%= id %>">Delete</div></td>
+			</tr>
+		</script>
+		<script type="text/template" id="certificate-provider-list-item-template">
+			<tr class="ui-widget-content">
+			<td><%= hostName%>
+			</td>
+			<td><div class="deleteCertificateProviderButton" objectId="<%= hostName %>">Delete</div></td>
+			</tr>
+		</script>
+		<script type="text/template" id="instance-type-list-item-template">
+			<tr class="ui-widget-content">
+			<td><%= name%>
+			</td>
+			<td><div class="deleteInstanceTypeButton" objectId="<%= id %>">Delete</div></td>
+			</tr>
+		</script>
+		<script type="text/template" id="volume-list-item-template">
+			<tr class="ui-widget-content">
+			<td><%= volumeId %> (<%= status %>)
+			</td>
+			<td><div class="inspectVolumeButton" objectId="<%= volumeId %>">Inspect</div></td>
+			<% if(volumeAttachments.length > 0){ print("<td><div class='detachVolumeButton' objectId='" + volumeId + "'>Detach</div></td>"); } %>
+			<td><div class="deleteVolumeButton" objectId="<%= volumeId %>">Delete</div></td>
+			</tr>
+		</script>
+		<script type="text/template" id="user-list-item-template">
+			<tr class="ui-widget-content">
+			<td><%= id %>: <%= name %>
+			</td>
+			<td><div class="inspectUserButton" objectId="<%= id %>">Inspect</div></td>
+			<td><div class="deleteUserButton" objectId="<%= id %>">Delete</div></td>
+			</tr>
+		</script>
+		
+		<script type="text/template" id="firmware-list-item-template">
+			<tr class="ui-widget-content">
+			<td><%= id %>: <%= name %>
+			</td>
+			<td><div class="inspectFirmwareButton" objectId="<%= id %>">Inspect</div></td>
+			<td><div class="deleteFirmwareButton" objectId="<%= id %>">Delete</div></td>
+			</tr>
+		</script>
+		
+		
+		<script type="text/template" id="capability-list-item-template">
+			<tr class="ui-widget-content">
+			<td><%= id %>: <%= name %>
+			</td>
+			<td><div class="inspectCapabilityButton" objectId="<%= id %>">Inspect</div></td>
+			<td><div class="deleteCapabilityButton" objectId="<%= id %>">Delete</div></td>
+			</tr>
+		</script>
+		<script type="text/template" id="product-item-template">
+			<table>
+			<tr><td>ID:</td><td><%= id %></td></tr>
+			<tr><td>Name:</td><td><%= name %></td></tr>
+			<tr><td>Desciption:</td><td><%= description %></td></tr>
+			<tr><td>Locale:</td><td><%= locale %></td></tr>
+			<tr><td>Provisioning Strategy:</td><td><%= provisioningStrategy %></td></tr>
+			<%
+			_.each(metadata, function(i){
+			%>
+			<tr><td><%= window.keyToTitle(i.name) %>:</td><td><%= i.value %></td></tr>
+			<%
+			});
+			%>
+			</table>
+		</script>
+		<script type="text/template" id="resource-item-template">
+			<table>
+			<tr><td>ID:</td><td><%= id %></td></tr>
+			<tr><td>Product Name:</td><td><%= product.name %></td></tr>
+			<tr><td>Desciption:</td><td><%= product.description %></td></tr>
+			<tr><td>Instance:</td><td><%= instanceId %> (<%= product.instanceType.name %>)</td></tr>
+			<tr><td>Volume ID:</td><td><%= volumeId %></td></tr>
+			<tr><td>Image:</td><td><%= product.image %></td></tr>
+			<tr><td>Host Name:</td><td><%= hostName %> (<%= ipAddress %>)</td></tr>
+			<tr><td>Availability Zone</td><td><%= availabilityZone %></td></tr>
+			<tr colspan="2"><td><a href="/Provision/resource/<%= id %>/mobileconfig">Generate Mobile Config</td></tr>
+			</table>
+		</script>
+		<script type="text/template" id="instance-item-template">
+			<table>
+			<tr><td>ID:</td><td><%= instanceId %></td></tr>
+			<tr><td>Display Name:</td><td><%= displayName %></td></tr>
+			<tr><td>State:</td><td><%= instanceState %></td></tr>
+			<tr><td>Public DNS Name</td><td><%= publicDnsName %></td></tr>
+			<tr><td>Private DNS Name</td><td><%= privateDnsName %></td></tr>
+			<tr><td>Launch Time</td><td><%= launchTime %></td></tr>
+			<tr><td>Image ID:</td><td><%= imageId %></td></tr>
+			<tr><td>IP Address</td><td><% if(ipAddress){%><%= ipAddress.ipAddress %><% } %></td></tr>
+			</table>
+		</script>
+		<script type="text/template" id="volume-item-template">
+			<table>
+			<tr><td>ID:</td><td><%= volumeId %></td></tr>
+			<tr><td>Status:</td><td><%= status %></td></tr>
+			<tr><td>Availability Zone:</td><td><%= availabilityZone %></td></tr>
+			<%
+			_.each(volumeAttachments, function(i){
+			%>
+			<tr><td>Volume Attachment:</td><td><%= i.instanceId %></td></tr>
+			<%
+			});
+			%>
+			</table>
+		</script>
+		<script type="text/template" id="certificate-item-template">
+			<table>
+			<tr><td>ID:</td><td><%= id %></td></tr>
+			<tr><td>Country Name:</td><td><%= subject.C %></td></tr>
+			<tr><td>State:</td><td><%= subject.ST %></td></tr>
+			<tr><td>Locality:</td><td><%= subject.L %></td></tr>
+			<tr><td>Organization:</td><td><%= subject.O %></td></tr>
+			<tr><td>Organizational Unit:</td><td><%= subject.OU %></td></tr>
+			<tr><td>Common Name:</td><td><%= subject.CN %></td></tr>
+			<tr><td>Email Address:</td><td><%= subject.emailAddress %></td></tr>
+			<tr><td>Subject Alt Name:</td><td><%= subject.subjectAltName %></td></tr>
+			<tr><td>Days Valid For:</td><td><%= daysValidFor %></td></tr>
+			<tr><td>Signer:</td><td><% if(selfSigned) { print("Self Signed");} else { print(signer.id);} %></td></tr>
+			<tr><td>Role:</td><td><%= role == 0 ? "None" : role == 1 ? "Cloud Gateway Signer" : role == 2 ? "Management Server" : role == 4 ? "Logging Server" : role == 8 ? "User Signer" : "Multi-roled"%></td></tr>
+			<tr><td colspan="2"><a href="/Provision/certificate/<%= id %>/cert">Get Certificate</a>&nbsp;<a href="/Provision/certificate/<%= id %>/privateKey">Get Private Key</a>&nbsp;<a href="/Provision/certificate/<%= id%>/signerBundle">Get Signer Bundle</a></td></tr>
+			</table>
+		</script>
+		<script type="text/template" id="user-item-template">
+			<table>
+			<tr><td>ID:</td><td><%= id %></td></tr>
+			<tr><td>Name:</td><td><%= name %></td></tr>
+			<tr><td>Certificate ID:</td><td><%= certificate.id %></td></tr>
+			<tr><td colspan="2"><a href="/Provision/certificate/<%= certificate.id %>/cert">Get Certificate</a>&nbsp;<a href="/Provision/certificate/<%= certificate.id %>/privateKey">Get Private Key</a>&nbsp;<a href="/Provision/certificate/role/gateway/signerBundle">Get Signer Bundle</a></td></tr>
+			</table>
+		</script>
+		
+		<script type="text/template" id="firmware-item-template">
+			<table>
+			<tr><td>ID:</td><td><%= id %></td></tr>
+			<tr><td>Name:</td><td><%= name %></td></tr>
+			</table>
+		</script>
+		
+		<script type="text/template" id="capability-item-template">
+			<table>
+			<tr><td>ID:</td><td><%= id %></td></tr>
+			<tr><td>Name:</td><td><%= name %></td></tr>
+			<tr><td>Description:</td><td><%= description %></td></tr>
+			<tr><td>URI:</td><td><%= uri %></td></tr>
+			</table>
+		</script>
+		<script type="text/template" id="strategy-list-item-template">
+			<li><a href='#/strategy/<%= name %>'><%= id %></a></li>
+		</script>
+		<script type="text/template" id="strategy-item-template">
+			<%= name %>: <%= description %>
+		</script>
+		<script type="text/template" id="product-delete-view-template">
+			<div>Are you sure you want to do this? This action can't be undone...</div>
+		</script>
+		<script type="text/template" id="resource-delete-view-template">
+			<div>Are you sure you want to do this? This action can't be undone...</div>
+		</script>
+		<script type="text/template" id="instance-reboot-view-template">
+			<div>Are you sure you want to reboot this device?</div>
+		</script>
+		<script type="text/template" id="instance-delete-view-template">
+			<div>Are you sure you want to do this? This action can't be undone...</div>
+		</script>
+		<script type="text/template" id="certificate-provider-delete-view-template">
+			<div>Are you sure you want to do this? This action can't be undone...</div>
+		</script>
+		<script type="text/template" id="instance-type-delete-view-template">
+			<div>Are you sure you want to do this? This action can't be undone...</div>
+		</script>
+		<script type="text/template" id="volume-delete-view-template">
+			<div>Are you sure you want to do this? This action can't be undone...</div>
+		</script>
+		<script type="text/template" id="user-delete-view-template">
+			<div>Are you sure you want to do this? This action can't be undone...</div>
+		</script>
+		<script type="text/template" id="volume-detach-view-template">
+			<div>Are you sure you want to do this? This action can't be undone...</div>
+		</script>
+		<script type="text/template" id="capability-delete-view-template">
+			<div>Are you sure you want to do this? This action can't be undone...</div>
+		</script>
+		<script type="text/template" id="certificate-delete-view-template">
+			<div>Are you sure you want to do this? This will delete all the certificates beneath it in the signing chain, since they can no longer be verified. This action can't be undone...</div>
+		</script>
+		<script type="text/template" id="resourceLaunchDialog">
+			<div>Your Resource is launching. This dialog will update when it's ready, or you can close it and keep working.</div>
+		</script>
+		<script type="text/template" id="resourceLaunchSuccess">
+			<div>Your new Resource ID is: <%= get("id") %></div>
+		</script>
+		<script type="text/template" id="resourceLaunchFailure">
+			<div>Something went wrong: <%= responseText %></div>
+		</script>
+	</body>
+</html>

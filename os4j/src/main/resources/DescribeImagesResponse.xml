@@ -1,0 +1,57 @@
+<xml>
+<item>
+	<displayName />
+	<description />
+	<imageOwnerId />
+	<isPublic>false</isPublic>
+	<imageId>ami-00000018</imageId>
+	<imageState>available</imageState>
+	<architecture>x86_64</architecture>
+	<imageLocation>snap/vm570-20111103-1.img.manifest.xml</imageLocation>
+	<rootDeviceType>instance-store</rootDeviceType>
+	<rootDeviceName>/dev/sda1</rootDeviceName>
+	<imageType>machine</imageType>
+</item>
+<item>
+	<displayName />
+	<description />
+	<imageOwnerId />
+	<isPublic>false</isPublic>
+	<imageId>ami-00000009</imageId>
+	<imageState>available</imageState>
+	<architecture>x86_64</architecture>
+	<imageLocation>server/server.img.manifest.xml</imageLocation>
+	<rootDeviceType>instance-store</rootDeviceType>
+	<rootDeviceName>/dev/sda1</rootDeviceName>
+	<imageType>machine</imageType>
+</item>
+<item>
+	<displayName />
+	<description />
+	<imageOwnerId />
+	<isPublic>false</isPublic>
+	<imageId>ami-00000004</imageId>
+	<imageState>available</imageState>
+	<rootDeviceType>instance-store</rootDeviceType>
+	<architecture>i386</architecture>
+	<imageLocation>server/maverick-server-uec-amd64.img.manifest.xml
+	</imageLocation>
+	<kernelId>aki-00000003</kernelId>
+	<rootDeviceName>/dev/sda1</rootDeviceName>
+	<imageType>machine</imageType>
+</item>
+<item>
+	<displayName />
+	<description />
+	<imageOwnerId />
+	<isPublic>false</isPublic>
+	<imageId>aki-00000003</imageId>
+	<imageState>available</imageState>
+	<architecture>i386</architecture>
+	<imageLocation>server/maverick-server-uec-amd64-vmlinuz-virtual.manifest.xml
+	</imageLocation>
+	<rootDeviceType>instance-store</rootDeviceType>
+	<rootDeviceName>/dev/sda1</rootDeviceName>
+	<imageType>kernel</imageType>
+</item>
+</xml>

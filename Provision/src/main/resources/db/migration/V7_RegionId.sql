@@ -1,0 +1,13 @@
+alter table Region add column id varchar(255) not null;
+alter table Region_availabilityZones drop foreign key FKF2474D41CD177566;
+alter table Region_availabilityZones drop index FKF2474D41CD177566;
+alter table Product drop foreign key FK50C664CFCD177566;
+alter table Product drop index FK50C664CFCD177566;
+alter table Product drop column Region_name;
+alter table Product add column Region_id varchar(255);
+alter table Region drop primary key;
+alter table Region add primary key(id);
+alter table Region_availabilityZones drop column Region_name;
+alter table Region_availabilityZones add column region_id varchar(255) not null;
+alter table Region_availabilityZones add index region_zone_index (Region_id), add constraint region_zone_fk foreign key (Region_id) references Region (id);
+alter table Product add index product_region_index (region_id), add constraint product_region_fk foreign key (region_id) references Region (id);

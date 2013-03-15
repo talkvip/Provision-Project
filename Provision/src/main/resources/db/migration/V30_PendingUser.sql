@@ -1,0 +1,1 @@
+alter table User add column pending bit(1) not null;

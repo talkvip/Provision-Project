@@ -1,0 +1,49 @@
+<item>
+	<ownerId>vsp</ownerId>
+	<groupSet>
+		<item>
+			<groupId>default</groupId>
+		</item>
+	</groupSet>
+	<reservationId>r-ft0o12lb</reservationId>
+	<instancesSet>
+		<item>
+			<displayDescription />
+			<blockDeviceMapping>
+				<item>
+					<deviceName>/dev/vdb</deviceName>
+					<ebs>
+						<status>in-use</status>
+						<deleteOnTermination>false</deleteOnTermination>
+						<volumeId>14</volumeId>
+						<attachTime>-</attachTime>
+					</ebs>
+				</item>
+			</blockDeviceMapping>
+			<displayName>Server 56</displayName>
+			<rootDeviceType>instance-store</rootDeviceType>
+			<keyName>snap (vsp, splanova04)</keyName>
+			<instanceId>i-00000038</instanceId>
+			<instanceState>
+				<code>1</code>
+				<name>running</name>
+			</instanceState>
+			<publicDnsName>192.168.1.112</publicDnsName>
+			<imageId>ami-00000018</imageId>
+			<productCodesSet />
+			<privateDnsName>172.16.0.6</privateDnsName>
+			<dnsName>192.168.1.112</dnsName>
+			<launchTime>2011-11-04T02:15:11Z</launchTime>
+			<amiLaunchIndex>0</amiLaunchIndex>
+			<rootDeviceName>/dev/vda</rootDeviceName>
+			<kernelId>ami-00000000</kernelId>
+			<ramdiskId>ami-00000000</ramdiskId>
+			<placement>
+				<availabilityZone>nova</availabilityZone>
+			</placement>
+			<ipAddress>192.168.1.112</ipAddress>
+			<instanceType>m1.large</instanceType>
+			<privateIpAddress>172.16.0.6</privateIpAddress>
+		</item>
+	</instancesSet>
+</item>

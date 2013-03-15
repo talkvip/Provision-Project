@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<DescribeSecurityGroupsResponse
+	xmlns="http://ec2.amazonaws.com/doc/2010-08-31/">
+	<requestId>56ec0ddb-6785-4ed7-a4f9-328f1117b0ef</requestId>
+	<securityGroupInfo>
+		<item>
+			<ipPermissions>
+				<item>
+					<toPort>-1</toPort>
+					<ipProtocol>icmp</ipProtocol>
+					<ipRanges>
+						<item>
+							<cidrIp>0.0.0.0/0</cidrIp>
+						</item>
+					</ipRanges>
+					<groups />
+					<fromPort>-1</fromPort>
+				</item>
+				<item>
+					<toPort>22</toPort>
+					<ipProtocol>tcp</ipProtocol>
+					<ipRanges>
+						<item>
+							<cidrIp>0.0.0.0/0</cidrIp>
+						</item>
+					</ipRanges>
+					<groups />
+					<fromPort>22</fromPort>
+				</item>
+				<item>
+					<toPort>7000</toPort>
+					<ipProtocol>udp</ipProtocol>
+					<ipRanges>
+						<item>
+							<cidrIp>0.0.0.0/0</cidrIp>
+						</item>
+					</ipRanges>
+					<groups />
+					<fromPort>7000</fromPort>
+				</item>
+				<item>
+					<toPort>4500</toPort>
+					<ipProtocol>udp</ipProtocol>
+					<ipRanges>
+						<item>
+							<cidrIp>0.0.0.0/0</cidrIp>
+						</item>
+					</ipRanges>
+					<groups />
+					<fromPort>4500</fromPort>
+				</item>
+				<item>
+					<toPort>500</toPort>
+					<ipProtocol>udp</ipProtocol>
+					<ipRanges>
+						<item>
+							<cidrIp>0.0.0.0/0</cidrIp>
+						</item>
+					</ipRanges>
+					<groups />
+					<fromPort>500</fromPort>
+				</item>
+			</ipPermissions>
+			<groupName>default</groupName>
+			<groupDescription>default</groupDescription>
+			<ownerId>vsp</ownerId>
+		</item>
+	</securityGroupInfo>
+</DescribeSecurityGroupsResponse>

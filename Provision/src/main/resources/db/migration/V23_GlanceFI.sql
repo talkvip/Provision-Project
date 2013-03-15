@@ -1,0 +1,1 @@
+create table GlanceFirmwareImage (id varchar(255) not null, uri varchar(255), name varchar(255), revision datetime, architecture varchar(255), checksum varchar(64), primary key (id)) ENGINE=InnoDB;

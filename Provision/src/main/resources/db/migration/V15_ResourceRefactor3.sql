@@ -1,0 +1,14 @@
+delete from Resource;
+delete from Product;
+alter table Product drop foreign key product_region_fk;
+alter table Product drop index product_region_index;
+alter table Product drop column region_id;
+alter table Product drop foreign key FK50C664CFF1696A25;
+alter table Product drop index FK50C664CFF1696A25;
+alter table Product drop column instanceType_id;
+alter table Product drop column image, drop column volumeSize;
+alter table Product add column product_type varchar(255);
+create table PhysicalProduct (id varchar(255) not null, hardwareType varchar(255) not null, firmwareVersion varchar(255) not null, primary key (id)) ENGINE=InnoDB;
+create table VirtualProduct (id varchar(255) not null, instanceType_id varchar(255) not null, region_id varchar(255) not null, image varchar(255) not null, volumeSize integer not null, primary key (id)) ENGINE=InnoDB;
+alter table VirtualProduct add index region_id_index (region_id), add constraint region_id_fk foreign key (region_id) references Region (id);
+alter table VirtualProduct add index Virtual_product_instanceType_id_index (instanceType_id), add constraint Virtual_product_instanceType_id_fk foreign key (instanceType_id) references InstanceType (id);

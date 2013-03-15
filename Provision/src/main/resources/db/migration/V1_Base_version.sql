@@ -1,0 +1,15 @@
+create table Certificate (id varchar(255) not null, canSign bit(1) not null, cert LONGTEXT, daysValidFor integer not null, downstream bit(1) not null, privateKey LONGTEXT, selfSigned bit(1) not null, upstream bit(1) not null, certificateProvider_hostName varchar(255), signer_id varchar(255), subject_id varchar(255), primary key (id), unique (id)) ENGINE=InnoDB;
+create table CertificateProvider (hostName varchar(255) not null, primary key (hostName)) ENGINE=InnoDB;
+create table CertificateSubject (id varchar(255) not null, commonName varchar(255), countryName varchar(255), emailAddress varchar(255), locality varchar(255), organization varchar(255), organizationalUnit varchar(255), state varchar(255), subjectAltName varchar(255), primary key (id)) ENGINE=InnoDB;
+create table InstanceType (id varchar(255) not null, name varchar(255), primary key (id)) ENGINE=InnoDB;
+create table Product (id varchar(255) not null, description varchar(255), image varchar(255), name varchar(255), provisioningStrategy varchar(255), serial varchar(255), volumeSize integer not null, instanceType_id varchar(255), region_name varchar(255), primary key (id)) ENGINE=InnoDB;
+create table Region (name varchar(255) not null, primary key (name)) ENGINE=InnoDB;
+create table Region_availabilityZones (Region_name varchar(255) not null, availabilityZones varchar(255)) ENGINE=InnoDB;
+create table Resource (id varchar(255) not null, availabilityZone varchar(255), hostName varchar(255), instanceId varchar(255), ipAddress varchar(255), volumeId varchar(255), product_id varchar(255), primary key (id)) ENGINE=InnoDB;
+alter table Certificate add index FKD7C8E977C29B3B42 (signer_id), add constraint FKD7C8E977C29B3B42 foreign key (signer_id) references Certificate (id);
+alter table Certificate add index FKD7C8E977B9D7D4E8 (subject_id), add constraint FKD7C8E977B9D7D4E8 foreign key (subject_id) references CertificateSubject (id);
+alter table Certificate add index FKD7C8E977F6C8BF0D (certificateProvider_hostName), add constraint FKD7C8E977F6C8BF0D foreign key (certificateProvider_hostName) references CertificateProvider (hostName);
+alter table Product add index FK50C664CFF1696A25 (instanceType_id), add constraint FK50C664CFF1696A25 foreign key (instanceType_id) references InstanceType (id);
+alter table Product add index FK50C664CFCD177566 (region_name), add constraint FK50C664CFCD177566 foreign key (region_name) references Region (name);
+alter table Region_availabilityZones add index FKF2474D41CD177566 (Region_name), add constraint FKF2474D41CD177566 foreign key (Region_name) references Region (name);
+alter table Resource add index FKEF86282E6681688D (product_id), add constraint FKEF86282E6681688D foreign key (product_id) references Product (id);

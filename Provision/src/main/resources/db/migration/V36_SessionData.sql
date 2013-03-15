@@ -1,0 +1,2 @@
+create table SessionData (id varchar(255) not null, session_id varchar(255), keyName varchar(255) not null, value varchar(255), primary key (id)) ENGINE=InnoDB;
+alter table SessionData add index SessionData_session_id_index (session_id), add constraint Session_session_id_fk foreign key (session_id) references Session (id);

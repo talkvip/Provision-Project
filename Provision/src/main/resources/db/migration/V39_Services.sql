@@ -1,0 +1,3 @@
+create table ServiceDescription (id varchar(255) not null, name varchar(255) not null, family varchar(255) not null, pkgurl varchar(2000) not null, primary key (id)) ENGINE=InnoDB;
+create table Service (id varchar(255) not null, serviceDescription_id varchar(255) not null, api varchar(255) not null, status varchar(255) not null, primary key (id)) ENGINE=InnoDB;
+alter table Service add index Service_ServiceDescription_id (serviceDescription_id), add constraint Service_ServiceDescription_id_fk foreign key (serviceDescription_id) references ServiceDescription (id);

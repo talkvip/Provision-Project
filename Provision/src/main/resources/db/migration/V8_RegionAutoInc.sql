@@ -1,0 +1,1 @@
+alter table Region modify id varchar(255) not null;

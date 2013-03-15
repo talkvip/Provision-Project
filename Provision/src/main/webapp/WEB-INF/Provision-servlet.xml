@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:util="http://www.springframework.org/schema/util"
+xmlns:sec="http://www.springframework.org/schema/security"
+xmlns:task="http://www.springframework.org/schema/task"
+xsi:schemaLocation="
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<context:property-placeholder location="classpath:provision.properties" />
+	<context:annotation-config />
+	<aop:aspectj-autoproxy/>
+	<context:component-scan base-package="com.cpn.vsp.provision" />
+	<task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
+	<task:executor id="myExecutor" pool-size="5"/>
+	<task:scheduler id="myScheduler" pool-size="10"/>
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:annotation-driven />
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+	<bean id="dataSource"
+	class="com.mchange.v2.c3p0.ComboPooledDataSource"
+	destroy-method="close">
+		<property name="driverClass">
+			<value>${jdbc.driverClassName}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="user">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>3</value>
+		</property>
+		<property name="minPoolSize">
+			<value>3</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>50</value>
+		</property>
+		<property name="idleConnectionTestPeriod">
+			<value>200</value>
+		</property>
+		<property name="acquireIncrement">
+			<value>1</value>
+		</property>
+		<property name="maxStatements">
+			<value>0</value>
+		</property><!-- 0 means: statement caching is turned off.  -->
+		<property name="numHelperThreads">
+			<value>3</value>
+		</property>  <!-- 3 is default -->
+		
+	</bean>
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+	p:entityManagerFactory-ref="entityManagerFactory" />
+	<bean id="entityManagerFactory" depends-on="flyway,hibernateStringEncryptor"
+	class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+	p:dataSource-ref="dataSource" p:jpaVendorAdapter-ref="jpaAdapter">
+		<property name="loadTimeWeaver">
+			<bean
+			class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+		</property>
+		<property name="persistenceUnitName" value="ProvisionPersistence"></property>
+	</bean>
+	<bean id="jpaAdapter"
+	class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+	p:databasePlatform="${jpa.database}" p:showSql="${jpa.showSql}" />
+	<bean id="flyway" class="com.googlecode.flyway.core.Flyway" init-method="migrate">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="basePackage" value="com.cpn.vsp.provision.database"/>
+	</bean>
+	<bean
+	class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<bean
+	class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<bean id="hibernateStringEncryptor"
+	class="org.jasypt.hibernate4.encryptor.HibernatePBEStringEncryptor">
+		<property name="registeredName">
+			<value>hibernateStringEncryptor</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.certificate.privateKey.encryptionKey}</value>
+		</property>
+	</bean>
+	<!-- JSTL resolver -->
+	<bean id="viewResolver"
+	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+		value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<bean class="java.net.URI" id="certianlyURL">
+		<constructor-arg>
+			<value>${certianly.url}</value>
+		</constructor-arg>
+	</bean>
+	<bean class="java.lang.String" id="hostname">
+		<constructor-arg>
+			<value>${local.hostname}</value>
+		</constructor-arg>
+	</bean>
+	<bean class="java.lang.String" id="vspdomain">
+		<constructor-arg>
+			<value>${vsp.domain}</value>
+		</constructor-arg>
+	</bean>
+	<bean class="java.lang.String" id="managementHostName">
+		<constructor-arg>
+			<value>${server.management.hostname}</value>
+		</constructor-arg>
+	</bean>
+	<bean class="java.lang.String" id="loggerHostName">
+		<constructor-arg>
+			<value>${server.logger.hostname}</value>
+		</constructor-arg>
+	</bean>
+	<bean class="java.lang.String" id="activationServer">
+		<constructor-arg>
+			<value>${activation.server}</value>
+		</constructor-arg>
+	</bean>
+	<bean class="java.lang.String" id="publicPort">
+		<constructor-arg>
+			<value>${public.port}</value>
+		</constructor-arg>
+	</bean>
+	<bean class="java.lang.String" id="publicAddress">
+		<constructor-arg>
+			<value>${public.address}</value>
+		</constructor-arg>
+	</bean>
+	<bean class="java.lang.Long" id="resourcePoolUpperBound">
+		<constructor-arg>
+			<value>${resourcePool.upperBound}</value>
+		</constructor-arg>
+	</bean>
+	<bean class="java.lang.String" id="openStackComputeRegion">
+		<constructor-arg>
+			<value>${endpoint.compute.regionName}</value>
+		</constructor-arg>
+	</bean>
+	<bean class="java.lang.String" id="vcgPoolName">
+		<constructor-arg>
+			<value>${endpoint.compute.poolName}</value>
+		</constructor-arg>
+	</bean>
+	<bean class="java.lang.Boolean" id="localhostHack">
+		<constructor-arg>
+			<value>${endpoint.localhostHack}</value>
+		</constructor-arg>
+	</bean>
+	<bean id="serviceCatalog" class="com.cpn.os4j.ServiceCatalog">
+		<constructor-arg>
+			<value>${endpoint.url}</value>
+		</constructor-arg>
+		<constructor-arg>
+			<bean class="com.cpn.os4j.OpenStackCredentials">
+				<constructor-arg>
+					<bean class="com.cpn.os4j.AuthenticationCredentials">
+						<constructor-arg>
+							<bean class="com.cpn.os4j.PasswordCredentials">
+								<constructor-arg>
+									<value>${endpoint.credentials.username}</value>
+								</constructor-arg>
+								<constructor-arg>
+									<value>${endpoint.credentials.password}</value>
+								</constructor-arg>
+							</bean>
+						</constructor-arg>
+						<constructor-arg>
+							<value>${endpoint.credentials.tenantName}</value>
+						</constructor-arg>
+					</bean>
+				</constructor-arg>
+			</bean>
+		</constructor-arg>
+	</bean>
+	<!-- JMS -->
+	<!-- JMS Destination <bean id="destination" class="org.activemq.message.ActiveMQQueue">
+	<constructor-arg value="queue" /> </bean> -->
+	<bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="${jms.jmsTemplate.topicName}" />
+	</bean>
+	<bean class="org.apache.activemq.ActiveMQConnectionFactory" id="jmsConnectionFactory">
+		<property name="brokerURL">
+			<value>${jms.jmsTemplate.brokerURL}</value>
+		</property>
+	</bean>
+	<bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
+	destroy-method="stop">
+		<property name="connectionFactory">
+			<ref local="jmsConnectionFactory"/>
+		</property>
+	</bean>
+	<!-- Spring JMS Template -->
+	<bean id="jmsTemplate" class="${jms.jmsTemplate.classname}">
+		<property name="connectionFactory">
+			<ref local="jmsFactory" />
+		</property>
+		<property name="defaultDestination">
+			<ref local="destination" />
+		</property>
+	</bean>
+	<bean id="VSPLogger" class="com.cpn.vsp.provision.logging.VSPLogger">
+		<constructor-arg ref="TopicLogger"></constructor-arg>
+	</bean>
+	<bean id="TopicLogger" class="com.cpn.vsp.provision.logging.JMSTopicLogger" >
+		<constructor-arg ref="jmsTemplate"></constructor-arg>
+	</bean>
+	<bean id="healthMonitor" class="${remediation.healthMonitor.className}"></bean>
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${smtp.server}" />
+		<property name="port" value="${smtp.port}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">false</prop>
+				<prop key="mail.smtp.starttls.enable">false</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="jmsLogger" class="${jms.jmsLogger.class}" init-method="init" destroy-method="stop"></bean>
+</beans>

@@ -1,0 +1,7 @@
+function (err, sig) {
+        assert.isNull(err, "Signing failed");
+        return certgen.verify(signerKey, sig, message, function(err, stdout, stderr) {
+          assert.isNull(err, "Verification failed");
+          return test.done();
+        });
+      }

@@ -1,0 +1,17 @@
+<DescribeSnapshotsResponse xmlns="http://ec2.amazonaws.com/doc/2010-08-31/">
+	<requestId>15b3869c-72c2-4a74-8316-f9a3c8aa524b</requestId>
+	<snapshotSet>
+		<item>
+			<status>creating</status>
+			<displayName />
+			<description />
+			<volumeId>vol-0000000e</volumeId>
+			<displayDescription />
+			<volumeSize>100</volumeSize>
+			<progress>0%</progress>
+			<startTime>2011-11-09T00:27:32Z</startTime>
+			<ownerId>vsp</ownerId>
+			<snapshotId>snap-00000001</snapshotId>
+		</item>
+	</snapshotSet>
+</DescribeSnapshotsResponse>

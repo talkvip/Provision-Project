@@ -1,0 +1,143 @@
+<?xml version="1.0" ?>
+<DescribeVolumesResponse xmlns="http://ec2.amazonaws.com/doc/2010-08-31/">
+	<requestId>e2c4bbf4-d7d8-49c0-a27e-64c68da98cac</requestId>
+	<volumeSet>
+		<item>
+			<status>in-use (vsp, splaims01, i-00000038[splanova04], /dev/vdb)</status>
+			<availabilityZone>nova</availabilityZone>
+			<displayName />
+			<volumeId>vol-0000000e</volumeId>
+			<displayDescription />
+			<attachmentSet>
+				<item>
+					<status>attached</status>
+					<attachTime />
+					<instanceId>i-00000038</instanceId>
+					<volumeId>vol-0000000e</volumeId>
+					<deleteOnTermination>false</deleteOnTermination>
+					<device>/dev/vdb</device>
+				</item>
+			</attachmentSet>
+			<snapshotId />
+			<createTime>2011-11-02T18:31:47Z</createTime>
+			<size>100</size>
+		</item>
+		<item>
+			<status>available (vsp, splaims01, None, None)</status>
+			<availabilityZone>nova</availabilityZone>
+			<displayName />
+			<volumeId>vol-0000000f</volumeId>
+			<displayDescription />
+			<attachmentSet>
+				<item />
+			</attachmentSet>
+			<snapshotId />
+			<createTime>2011-11-02T18:31:52Z</createTime>
+			<size>100</size>
+		</item>
+		<item>
+			<status>available (vsp, splaims01, None, None)</status>
+			<availabilityZone>nova</availabilityZone>
+			<displayName />
+			<volumeId>vol-00000010</volumeId>
+			<displayDescription />
+			<attachmentSet>
+				<item />
+			</attachmentSet>
+			<snapshotId />
+			<createTime>2011-11-02T18:31:52Z</createTime>
+			<size>100</size>
+		</item>
+		<item>
+			<status>available (vsp, splaims01, None, None)</status>
+			<availabilityZone>nova</availabilityZone>
+			<displayName />
+			<volumeId>vol-00000011</volumeId>
+			<displayDescription />
+			<attachmentSet>
+				<item />
+			</attachmentSet>
+			<snapshotId />
+			<createTime>2011-11-02T18:31:53Z</createTime>
+			<size>100</size>
+		</item>
+		<item>
+			<status>available (vsp, splaims01, None, None)</status>
+			<availabilityZone>nova</availabilityZone>
+			<displayName />
+			<volumeId>vol-00000012</volumeId>
+			<displayDescription />
+			<attachmentSet>
+				<item />
+			</attachmentSet>
+			<snapshotId />
+			<createTime>2011-11-02T18:31:53Z</createTime>
+			<size>100</size>
+		</item>
+		<item>
+			<status>available (vsp, splaims01, None, None)</status>
+			<availabilityZone>nova</availabilityZone>
+			<displayName />
+			<volumeId>vol-00000013</volumeId>
+			<displayDescription />
+			<attachmentSet>
+				<item />
+			</attachmentSet>
+			<snapshotId />
+			<createTime>2011-11-03T21:18:25Z</createTime>
+			<size>100</size>
+		</item>
+		<item>
+			<status>available (vsp, splaims01, None, None)</status>
+			<availabilityZone>nova</availabilityZone>
+			<displayName />
+			<volumeId>vol-00000014</volumeId>
+			<displayDescription />
+			<attachmentSet>
+				<item />
+			</attachmentSet>
+			<snapshotId />
+			<createTime>2011-11-03T21:18:27Z</createTime>
+			<size>100</size>
+		</item>
+		<item>
+			<status>available (vsp, splaims01, None, None)</status>
+			<availabilityZone>nova</availabilityZone>
+			<displayName />
+			<volumeId>vol-00000015</volumeId>
+			<displayDescription />
+			<attachmentSet>
+				<item />
+			</attachmentSet>
+			<snapshotId />
+			<createTime>2011-11-03T21:18:28Z</createTime>
+			<size>100</size>
+		</item>
+		<item>
+			<status>available (vsp, splaims01, None, None)</status>
+			<availabilityZone>nova</availabilityZone>
+			<displayName />
+			<volumeId>vol-00000016</volumeId>
+			<displayDescription />
+			<attachmentSet>
+				<item />
+			</attachmentSet>
+			<snapshotId />
+			<createTime>2011-11-03T21:18:29Z</createTime>
+			<size>100</size>
+		</item>
+		<item>
+			<status>available (vsp, splaims01, None, None)</status>
+			<availabilityZone>nova</availabilityZone>
+			<displayName />
+			<volumeId>vol-00000017</volumeId>
+			<displayDescription />
+			<attachmentSet>
+				<item />
+			</attachmentSet>
+			<snapshotId />
+			<createTime>2011-11-03T21:18:30Z</createTime>
+			<size>100</size>
+		</item>
+	</volumeSet>
+</DescribeVolumesResponse>

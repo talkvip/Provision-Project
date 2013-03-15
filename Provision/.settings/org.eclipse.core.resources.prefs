@@ -1,0 +1,15 @@
+#Mon Apr 02 10:12:38 PDT 2012
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/java/com/cpn/vsp/provision/resource/VirtualResource.java=UTF-8
+encoding//src/main/java/com/cpn/vsp/provision/strategy/provision/PhysicalCloudGatewayProvisioningStrategy.java=UTF-8
+encoding//src/main/java/com/cpn/vsp/provision/strategy/provision/VirtualCloudGatewayProvisioningStrategy.java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/test/java=UTF-8
+encoding//src/test/resources=UTF-8
+encoding/<project>=UTF-8
+encoding/bullseye.properties=UTF-8
+encoding/dev.properties=UTF-8
+encoding/ims01.telekom.vsp.properties=UTF-8
+encoding/localhost.properties=UTF-8
+encoding/maestro.properties=UTF-8

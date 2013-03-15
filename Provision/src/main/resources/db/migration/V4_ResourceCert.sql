@@ -1,0 +1,2 @@
+alter table Resource add column certificate_id varchar(255);
+alter table Resource add index certificate_id_index (certificate_id), add constraint certificate_id_fk foreign key (certificate_id) references Certificate (id);
